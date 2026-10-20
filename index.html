@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Status Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #edf1f5;
+      padding: 20px;
+      color: #26364a;
+    }
+    .card {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px #0002;
+    }
+    .notice {
+      background: #dceaff;
+      color: #164da5;
+      padding: 12px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    h1 {
+      background: #8525b5;
+      color: white;
+      text-align: center;
+      padding: 24px 10px;
+      margin: 0;
+    }
+    .item {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 20px 15px;
+      border-bottom: 1px solid #ddd;
+    }
+    .value {
+      color: #71808d;
+      text-align: right;
+    }
+    .actions {
+      text-align: center;
+      padding: 25px;
+    }
+    button {
+      background: #20277f;
+      color: white;
+      border: 0;
+      border-radius: 30px;
+      padding: 15px 40px;
+      font-size: 17px;
+      cursor: pointer;
+    }
+    a {
+      display: block;
+      margin-top: 20px;
+      color: #1755bd;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="notice">DEMO — NOT AN OFFICIAL VISA CHECK</div>
+    <h1>Check Status</h1>
+
+    <div class="item">
+      <b>Application ID</b>
+      <span class="value" id="appId">DEMO-12345</span>
+    </div>
+    <div class="item">
+      <b>Name</b>
+      <span class="value">SAMPLE USER</span>
+    </div>
+    <div class="item">
+      <b>Nationality</b>
+      <span class="value">DEMO ONLY</span>
+    </div>
+    <div class="item">
+      <b>Passport Number</b>
+      <span class="value">XX0000000</span>
+    </div>
+    <div class="item">
+      <b>Status</b>
+      <span class="value">Sample — no real record</span>
+    </div>
+
+    <div class="actions">
+      <button onclick="refreshDemo()">REFRESH</button>
+      <a href="./">Home</a>
+      <p id="message"></p>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const id = params.get("id");
+
+    if (id && /^[a-zA-Z0-9-]{1,30}$/.test(id)) {
+      document.getElementById("appId").textContent = id;
+    }
+
+    function refreshDemo() {
+      document.getElementById("message").textContent =
+        "Demo page refreshed!";
+    }
+  </script>
+</body>
+</html>
