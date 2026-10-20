@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Status Check</title>
 
 <style>
@@ -18,37 +19,44 @@ body {
   color: #25364a;
 }
 
-/* Top Home bar */
+/* BLUE HOME BAR */
 .top-home {
-  background: #2b5d91;
+  background: #24558c;
+  border: 2px solid #153b69;
+  border-radius: 0 0 8px 8px;
   text-align: center;
-  padding: 18px;
-  margin: 0 -12px 35px;
-  box-shadow: 0 4px 12px #00000020;
+  padding: 17px;
+  margin: 0 -12px 25px;
 }
 
 .top-home a {
+  display: inline-block;
   color: white;
   text-decoration: none;
-  font-size: 22px;
+  font-size: 21px;
   font-weight: bold;
+  padding: 4px 18px;
 }
 
-/* Demo notice */
+.top-home a:hover {
+  text-decoration: underline;
+}
+
+/* DEMO NOTICE */
 .notice {
   max-width: 560px;
-  margin: 0 auto 20px;
+  margin: 0 auto 18px;
   padding: 13px 10px;
   background: #dceaff;
   color: #164da5;
   text-align: center;
   font-size: 13px;
   font-weight: bold;
-  border-radius: 8px;
   line-height: 1.5;
+  border-radius: 8px;
 }
 
-/* Main card */
+/* MAIN CARD */
 .card {
   max-width: 560px;
   margin: auto;
@@ -58,17 +66,17 @@ body {
   box-shadow: 0 8px 28px #00000012;
 }
 
-/* Purple title */
+/* PURPLE HEADING */
 .header {
   background: linear-gradient(100deg, #7622a7, #a21bc0);
   color: white;
-  padding: 22px 14px;
+  padding: 23px 14px;
   text-align: center;
   font-size: 25px;
   font-weight: bold;
 }
 
-/* Detail rows */
+/* DETAILS */
 .item {
   display: grid;
   grid-template-columns: 43% 57%;
@@ -77,7 +85,7 @@ body {
   border-bottom: 1px solid #e1e5e9;
   overflow-wrap: anywhere;
   line-height: 1.5;
-  min-height: 78px;
+  min-height: 76px;
 }
 
 .label {
@@ -89,16 +97,16 @@ body {
 }
 
 .status {
-  min-height: 125px;
+  min-height: 110px;
 }
 
-/* Buttons */
+/* BOTTOM REFRESH BUTTON */
 .actions {
   text-align: center;
   padding: 28px 18px 32px;
 }
 
-button {
+.refresh-button {
   width: 80%;
   max-width: 300px;
   padding: 17px 12px;
@@ -111,12 +119,12 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.refresh-button:hover {
   background: #303caa;
 }
 
-button:focus-visible,
-a:focus-visible {
+.refresh-button:focus-visible,
+.top-home a:focus-visible {
   outline: 3px solid #f0a500;
   outline-offset: 3px;
 }
@@ -143,9 +151,9 @@ a:focus-visible {
 
 <body>
 
-<!-- Home at the top -->
+<!-- HOME BUTTON AT TOP -->
 <div class="top-home">
-  <a href="./">Home</a>
+  <a href="./" aria-label="Go to demo home page">Home</a>
 </div>
 
 <div class="notice">
@@ -153,6 +161,7 @@ a:focus-visible {
 </div>
 
 <main class="card">
+
   <div class="header">Check Status</div>
 
   <div class="item">
@@ -182,30 +191,42 @@ a:focus-visible {
     </span>
   </div>
 
+  <!-- WORKING REFRESH BUTTON -->
   <div class="actions">
-    <button type="button" onclick="refreshPage()">
+    <button
+      type="button"
+      class="refresh-button"
+      id="refreshButton">
       REFRESH
     </button>
 
     <p class="message" id="message" aria-live="polite"></p>
   </div>
+
 </main>
 
 <script>
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
 
-function validId(value) {
-  return value && /^[a-zA-Z0-9-]{1,30}$/.test(value);
-}
+  function isValidId(value) {
+    return value !== null &&
+      /^[a-zA-Z0-9-]{1,30}$/.test(value);
+  }
 
-document.getElementById("appId").textContent =
-  validId(id) ? id : "DEMO-12345";
+  const appId = document.getElementById("appId");
 
-function refreshPage() {
-  // Reloads the page and keeps the current URL and ID.
-  window.location.reload();
-}
+  appId.textContent = isValidId(id)
+    ? id
+    : "DEMO-12345";
+
+  document.getElementById("refreshButton")
+    .addEventListener("click", function () {
+      // Reload the current page, keeping its URL and ID.
+      window.location.reload();
+    });
+})();
 </script>
 
 </body>
