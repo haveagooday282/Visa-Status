@@ -1,233 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Application Status Demo</title>
 
-<title>Status Check</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<style>
-* {
-  box-sizing: border-box;
-}
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6fa;
+      color: #222;
+    }
 
-body {
-  margin: 0;
-  padding: 0 12px 30px;
-  background: #edf1f5;
-  font-family: Arial, sans-serif;
-  color: #25364a;
-}
+    /* Top Home Bar */
+    .header {
+      background: #1266a8;
+      padding: 16px 20px;
+    }
 
-/* BLUE HOME BAR */
-.top-home {
-  background: #24558c;
-  border: 2px solid #153b69;
-  border-radius: 0 0 8px 8px;
-  text-align: center;
-  padding: 17px;
-  margin: 0 -12px 25px;
-}
+    .header a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+    }
 
-.top-home a {
-  display: inline-block;
-  color: white;
-  text-decoration: none;
-  font-size: 21px;
-  font-weight: bold;
-  padding: 4px 18px;
-}
+    .header a:hover {
+      text-decoration: underline;
+    }
 
-.top-home a:hover {
-  text-decoration: underline;
-}
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+    }
 
-/* DEMO NOTICE */
-.notice {
-  max-width: 560px;
-  margin: 0 auto 18px;
-  padding: 13px 10px;
-  background: #dceaff;
-  color: #164da5;
-  text-align: center;
-  font-size: 13px;
-  font-weight: bold;
-  line-height: 1.5;
-  border-radius: 8px;
-}
+    .demo-notice {
+      background: #fff3cd;
+      color: #664d03;
+      border: 1px solid #ffecb5;
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 18px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
 
-/* MAIN CARD */
-.card {
-  max-width: 560px;
-  margin: auto;
-  background: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 8px 28px #00000012;
-}
+    .title {
+      background: #673ab7;
+      color: white;
+      text-align: center;
+      padding: 18px;
+      border-radius: 6px 6px 0 0;
+      font-size: 22px;
+      font-weight: bold;
+    }
 
-/* PURPLE HEADING */
-.header {
-  background: linear-gradient(100deg, #7622a7, #a21bc0);
-  color: white;
-  padding: 23px 14px;
-  text-align: center;
-  font-size: 25px;
-  font-weight: bold;
-}
+    .details {
+      background: white;
+      border: 1px solid #ddd;
+      border-top: none;
+      border-radius: 0 0 6px 6px;
+      padding: 18px;
+    }
 
-/* DETAILS */
-.item {
-  display: grid;
-  grid-template-columns: 43% 57%;
-  gap: 5px;
-  padding: 21px 16px;
-  border-bottom: 1px solid #e1e5e9;
-  overflow-wrap: anywhere;
-  line-height: 1.5;
-  min-height: 76px;
-}
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px 0;
+      border-bottom: 1px solid #eee;
+    }
 
-.label {
-  font-weight: bold;
-}
+    .row:last-child {
+      border-bottom: none;
+    }
 
-.value {
-  color: #71808d;
-}
+    .label {
+      font-weight: bold;
+      color: #444;
+    }
 
-.status {
-  min-height: 110px;
-}
+    .value {
+      text-align: right;
+      overflow-wrap: anywhere;
+    }
 
-/* BOTTOM REFRESH BUTTON */
-.actions {
-  text-align: center;
-  padding: 28px 18px 32px;
-}
+    .status {
+      color: #856404;
+      font-weight: bold;
+    }
 
-.refresh-button {
-  width: 80%;
-  max-width: 300px;
-  padding: 17px 12px;
-  border: none;
-  border-radius: 40px;
-  background: #20277f;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-}
+    .actions {
+      margin-top: 20px;
+      text-align: center;
+    }
 
-.refresh-button:hover {
-  background: #303caa;
-}
+    .refresh-btn {
+      background: #673ab7;
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
 
-.refresh-button:focus-visible,
-.top-home a:focus-visible {
-  outline: 3px solid #f0a500;
-  outline-offset: 3px;
-}
+    .refresh-btn:hover {
+      background: #512da8;
+    }
 
-.message {
-  color: #536273;
-  font-size: 14px;
-  margin-top: 14px;
-}
+    .footer {
+      text-align: center;
+      color: #666;
+      font-size: 13px;
+      margin-top: 24px;
+    }
 
-@media (max-width: 380px) {
-  .item {
-    grid-template-columns: 42% 58%;
-    padding: 18px 12px;
-    font-size: 14px;
-  }
+    @media (max-width: 480px) {
+      .container {
+        margin: 16px auto;
+        padding: 12px;
+      }
 
-  .header {
-    font-size: 22px;
-  }
-}
-</style>
+      .row {
+        font-size: 14px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- HOME BUTTON AT TOP -->
-<div class="top-home">
-  <a href="https://haveagooday282.github.io/Visa-Status/?id+12345"./" aria-label="Go to home page/">Home</a>
-</div>
+  <!-- Home button: opens your website -->
+  <header class="header">
+    <a href="https://www.demaaz.com/">Home</a>
+  </header>
 
-<div class="notice">
-  D — AN OFFICIAL VISA CHECK
-</div>
+  <main class="container">
 
-<main class="card">
+    <div class="demo-notice">
+      <strong>DEMO WEBSITE</strong><br>
+      This is a sample page for demonstration only.
+      It is not an official visa or government status-checking service.
+    </div>
 
-  <div class="header">Check Status</div>
+    <div class="title">Check Status</div>
 
-  <div class="item">
-    <span class="label">Application ID</span>
-    <span class="value" id="appId">DEMO-12345</span>
-  </div>
+    <section class="details">
+      <div class="row">
+        <span class="label">Application ID</span>
+        <span class="value" id="applicationId">12345</span>
+      </div>
 
-  <div class="item">
-    <span class="label">Name</span>
-    <span class="value">SAMPLE USER</span>
-  </div>
+      <div class="row">
+        <span class="label">Name</span>
+        <span class="value">Demo User</span>
+      </div>
 
-  <div class="item">
-    <span class="label">Nationality</span>
-    <span class="value">DEMO ONLY</span>
-  </div>
+      <div class="row">
+        <span class="label">Nationality</span>
+        <span class="value">Sample</span>
+      </div>
 
-  <div class="item">
-    <span class="label">Passport Number</span>
-    <span class="value">XX0000000</span>
-  </div>
+      <div class="row">
+        <span class="label">Passport Number</span>
+        <span class="value">DEMO1234</span>
+      </div>
 
-  <div class="item status">
-    <span class="label">Status</span>
-    <span class="value">
-      Sample status — no real record
-    </span>
-  </div>
+      <div class="row">
+        <span class="label">Status</span>
+        <span class="value status">Demo — Not Verified</span>
+      </div>
+    </section>
 
-  <!-- WORKING REFRESH BUTTON -->
-  <div class="actions">
-    <button
-      type="button"
-      class="refresh-button"
-      id="refreshButton">
-      REFRESH
-    </button>
+    <div class="actions">
+      <button class="refresh-btn" id="refreshButton" type="button">
+        Refresh
+      </button>
+    </div>
 
-    <p class="message" id="message" aria-live="polite"></p>
-  </div>
+    <div class="footer">
+      Demonstration page only — no official records are checked.
+    </div>
 
-</main>
+  </main>
 
-<script>
-(function () {
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
+  <script>
+    // Show the ID supplied in the URL, if present.
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
 
-  function isValidId(value) {
-    return value !== null &&
-      /^[a-zA-Z0-9-]{1,30}$/.test(value);
-  }
+    if (id && /^[a-zA-Z0-9-]{1,30}$/.test(id)) {
+      document.getElementById("applicationId").textContent = id;
+    }
 
-  const appId = document.getElementById("appId");
-
-  appId.textContent = isValidId(id)
-    ? id
-    : "DEMO-12345";
-
-  document.getElementById("refreshButton")
-    .addEventListener("click", function () {
-      // Reload the current page, keeping its URL and ID.
+    // Refresh the current page.
+    document.getElementById("refreshButton").addEventListener("click", function () {
       window.location.reload();
     });
-})();
-</script>
+  </script>
 
 </body>
 </html>
